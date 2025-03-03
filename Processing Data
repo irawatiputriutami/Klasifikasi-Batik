@@ -1,0 +1,33 @@
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# Direktori dataset
+dataset_dir = '/content/dataset_batik'
+
+# Inisialisasi ImageDataGenerator untuk data training dan validasi
+train_datagen = ImageDataGenerator(
+    rescale=1./255,  # Normalisasi gambar agar nilai pixel antara 0 dan 1
+    rotation_range=40,  # Random rotasi gambar
+    width_shift_range=0.2,  # Geser gambar secara horizontal
+    height_shift_range=0.2,  # Geser gambar secara vertikal
+    shear_range=0.2,  # Shearing (transformasi geometris)
+    zoom_range=0.2,  # Zoom in/out
+    horizontal_flip=True,  # Membalik gambar secara horizontal
+    fill_mode='nearest'  # Isi bagian kosong setelah transformasi
+)
+
+validation_datagen = ImageDataGenerator(rescale=1./255)  # Untuk validasi, hanya normalisasi
+
+# Menggunakan flow_from_directory untuk load gambar secara otomatis
+train_generator = train_datagen.flow_from_directory(
+    dataset_dir,  # Direktori dataset
+    target_size=(150, 150),  # Ubah ukuran gambar menjadi 150x150 piksel
+    batch_size=32,  # Ukuran batch
+    class_mode='categorical'  # Kita akan mengklasifikasikan gambar ke beberapa kelas (batik jenis-jenis)
+)
+
+validation_generator = validation_datagen.flow_from_directory(
+    dataset_dir,  # Direktori dataset
+    target_size=(150, 150),  # Ubah ukuran gambar menjadi 150x150 piksel
+    batch_size=32,  # Ukuran batch
+    class_mode='categorical'  # Sama seperti training, untuk klasifikasi
+)
