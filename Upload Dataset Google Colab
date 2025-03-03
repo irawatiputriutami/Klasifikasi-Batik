@@ -1,0 +1,19 @@
+import zipfile
+import os
+
+# Path file zip
+zip_file_path = '/content/dataset_batik.zip'  # Ganti dengan path file zip Anda
+
+# Pastikan file zip ada di lokasi yang benar.
+# Jika file tidak ada, upload file ke Google Colab.
+# Anda dapat menggunakan kode berikut untuk mengupload file:
+from google.colab import files
+uploaded = files.upload()  # This line was previously commented out. Uncomment and execute it to upload the file
+
+# Ekstrak ke folder tertentu
+extract_folder = '/content/dataset_batik'  # Ganti dengan nama folder tujuan
+with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    zip_ref.extractall(extract_folder)
+
+# Mengecek apakah folder sudah diekstrak
+os.listdir(extract_folder)
