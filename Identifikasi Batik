@@ -1,0 +1,4 @@
+from google.colab import files
+
+# Mengupload gambar baru
+uploaded = files.upload()  # Mengupload gambar dari lokal ke Colab
